@@ -32,9 +32,12 @@ fn _split_symbol(symbol: &str, numbers: bool, max_len: usize) -> String {
         if c.is_numeric() {
             if numbers {
                 add_space!();
-                let i = c.to_digit(10).unwrap();
-                words.push_str(SPOKEN_NUMBERS[i as usize]);
-                prev_space = false;
+                match c.to_digit(10) {
+                    Some(i) => {
+                        words.push_str(SPOKEN_NUMBERS[i as usize]);
+                        prev_space = false;},
+                    None => {}
+                }
             }
             prev_numeric = true;
         } else {
@@ -120,6 +123,12 @@ fn test_numbers() {
     assert_eq!(_split_symbol("_9a", true, 0), "nine a");
     assert_eq!(_split_symbol("_a9", true, 0), "a nine");
     assert_eq!(_split_symbol("9aa99", true, 0), "nine aa nine nine");
+}
+
+#[test]
+fn test_unicode() {
+    assert_eq!(_split_symbol("touché", false, 0), "touché");
+    assert_eq!(_split_symbol("8½.AKA", true, 3), "eight A K");
 }
 
 #[test]
