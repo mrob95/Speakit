@@ -1,6 +1,6 @@
 [package]
 name = "speakit"
-version = "0.1.0"
+version = "0.1.2"
 authors = ["Mike Roberts <42875462+mrob95@users.noreply.github.com>"]
 edition = "2018"
 
